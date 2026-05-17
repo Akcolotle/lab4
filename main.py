@@ -146,6 +146,40 @@ def print_table(rates, date):
     print(f"\n  Всього валют: {len(rates)}")
     print()
 
+def print_table(rates, date):
+    """Вивести курси"""
+    if not rates:
+        print("Дані відсутні.")
+        return
+
+    W_NUM  = 14
+    W_LIT  = 14
+    W_NAME = 38
+    W_RATE = 18
+
+    sep = ("+" + "-" * W_NUM + "+" + "-" * W_LIT +
+           "+" + "-" * W_NAME + "+" + "-" * W_RATE + "+")
+
+    title = f" Офіційні курси валют НБУ станом на {date} "
+    print()
+    print(title.center(len(sep), "="))
+    print()
+    print(sep)
+    print(f"|{'Код цифровий':^{W_NUM}}|{'Код літерний':^{W_LIT}}"
+          f"|{'Назва валюти':^{W_NAME}}|{'Офіційний курс':^{W_RATE}}|")
+    print(sep)
+
+    for r in rates:
+        name = r["name"]
+        if len(name) > W_NAME - 2:
+            name = name[:W_NAME - 5] + "..."
+        print(f"| {r['code_num']:<{W_NUM-2}} | {r['code_lit']:<{W_LIT-2}} "
+              f"| {name:<{W_NAME-2}} | {r['rate']:>{W_RATE-2}} |")
+
+    print(sep)
+    print(f"\n  Всього валют: {len(rates)}")
+    print()
+
 def main():
     rates, date = [], "невідома дата"
 
